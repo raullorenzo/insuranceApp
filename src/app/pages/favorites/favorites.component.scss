@@ -1,0 +1,129 @@
+// Favorite Page
+
+.badge-danger {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.badge-danger:hover {
+  color: #fcbb33 !important;
+}
+
+.img-container img{
+  height: 78px;
+  width: 78px;
+  background: white;
+  margin-bottom: 5px;
+}
+
+.card-img-body {
+  height: 75px;
+  // border-radius: 50%;
+  padding: 12px;
+}
+
+.btn-img-body {
+  width: auto;
+  height: auto;
+  padding: 2px;
+}
+
+.badge {
+  position: absolute;
+  right: 15px;
+}
+
+.empty-list {
+  padding: 20px;
+}
+
+.delet-fav {
+  cursor: pointer;
+  color: #dc3545 !important;
+  z-index: 100;
+  position: absolute;
+  right: 15px;
+  display: block !important;
+  -webkit-transition:-webkit-transform 0.35s ease-out;
+  -moz-transition:-moz-transform 0.35s ease-out;
+  -o-transition:-o-transform 0.35s ease-out;
+  -ms-transition:-ms-transform 0.35s ease-out;
+  transition:transform 0.35s ease-out;
+  &:hover {
+    color: #fcbb33 !important;
+    -moz-transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+  }
+}
+
+/*=============================================
+ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
+=============================================*/
+
+@media (min-width:1200px){
+
+	.btn-icon {
+    position: absolute;
+    border-radius: 0;
+    bottom: 9.6rem;
+    left: 20%;
+    width: 78px;
+    height: 78px;
+  }
+
+}
+
+/*=============================================
+ESCRITORIO MEDIANO O TABLET HORIZONTAL (MD revisamos en 1024px)
+=============================================*/
+
+@media (max-width:1199px) and (min-width:992px){
+
+	.btn-icon {
+    position: absolute;
+    border-radius: 0;
+    bottom: 9.6rem;
+    left: 20%;
+    width: 78px;
+    height: 78px;
+  }
+
+}
+
+/*=============================================
+ESCRITORIO PEQUEÑO O TABLET VERTICAL (SM revisamos en 768px)
+=============================================*/
+
+@media (max-width:991px) and (min-width:500px){
+
+  .btn-icon {
+    position: absolute;
+    border-radius: 0;
+    bottom: 9.6rem;
+    left: 20%;
+    width: 78px;
+    height: 78px;
+  }
+
+}
+
+/*=============================================
+MOVIL (XS revisamos en 320px)
+=============================================*/
+
+@media (max-width:499px){
+
+  .btn-icon {
+    position: absolute;
+    border-radius: 0;
+    bottom: 9.6rem;
+    left: 29%;
+    width: 78px;
+    height: 78px;
+  }
+
+}
+

@@ -1,0 +1,259 @@
+<!-- Search name -->
+<div *ngIf="field === 'name'">
+  <div class="body-home search-div">
+    <div class="md-form">
+      <i class="material-icons" mdbTooltip="Select a term for search" placement="right">search</i>
+      <input type="text"
+        id="typeahead-template"
+        [ngModelOptions]="{standalone: true}"
+        [ngbTypeahead]="searchSelected"
+        [resultTemplate]="rt"
+        [inputFormatter]="formatterName"
+        class="form-control"
+        placeholder="Search an insurance by '{{field | uppercase}}'"
+        (keyup)="onKey($event)"
+        [(ngModel)]="terms"
+        [ngModelOptions]="{standalone: true}"
+        (blur)="onBlur(terms)"
+        (focus)="onFocus(terms)">
+      </div>
+  </div>
+
+  <!-- Search autocompletable -->
+  <ng-template #rt let-r="result" let-t="term">
+    <img src="assets/images/{{r.brandImage}}" class="mr-1" style="width: 16px">
+    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>
+
+<!-- Search brand -->
+<div *ngIf="field === 'brand'">
+  <div class="body-home search-div">
+    <div class="md-form">
+      <i class="material-icons" mdbTooltip="Select a term for search" placement="right">search</i>
+      <input type="text"
+        id="typeahead-template"
+        [ngModelOptions]="{standalone: true}"
+        [ngbTypeahead]="searchSelected"
+        [resultTemplate]="rt"
+        [inputFormatter]="formatterBrand"
+        class="form-control"
+        placeholder="Search an insurance by '{{field | uppercase}}'"
+        (keyup)="onKey($event)"
+        [(ngModel)]="terms"
+        [ngModelOptions]="{standalone: true}"
+        (blur)="onBlur(terms)"
+        (focus)="onFocus(terms)">
+      </div>
+  </div>
+
+  <!-- Search autocompletable -->
+  <ng-template #rt let-r="result" let-t="term">
+    <img src="assets/images/{{r.brandImage}}" class="mr-1" style="width: 16px">
+    <ngb-highlight [result]="r.brand" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>
+
+<!-- Search kind -->
+<div *ngIf="field === 'kind'">
+  <div class="body-home search-div">
+    <div class="md-form">
+      <i class="material-icons" mdbTooltip="Select a term for search" placement="right">search</i>
+      <input type="text"
+        id="typeahead-template"
+        [ngModelOptions]="{standalone: true}"
+        [ngbTypeahead]="searchSelected"
+        [resultTemplate]="rt"
+        [inputFormatter]="formatterKind"
+        class="form-control"
+        placeholder="Search an insurance by '{{field | uppercase}}'"
+        (keyup)="onKey($event)"
+        [(ngModel)]="terms"
+        [ngModelOptions]="{standalone: true}"
+        (blur)="onBlur(terms)"
+        (focus)="onFocus(terms)">
+      </div>
+  </div>
+
+  <!-- Search autocompletable -->
+  <ng-template #rt let-r="result" let-t="term">
+    <img src="assets/images/{{r.brandImage}}" class="mr-1" style="width: 16px">
+    <ngb-highlight [result]="r.kind" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>
+
+<!-- Search price -->
+<div *ngIf="field === 'price'">
+  <div class="body-home search-div">
+    <div class="md-form">
+      <i class="material-icons" mdbTooltip="Select a term for search" placement="right">search</i>
+      <input type="text"
+        id="typeahead-template"
+        [ngModelOptions]="{standalone: true}"
+        [ngbTypeahead]="searchSelected"
+        [resultTemplate]="rt"
+        [inputFormatter]="formatterPrice"
+        class="form-control"
+        placeholder="Search an insurance by '{{field | uppercase}}'"
+        (keyup)="onKey($event)"
+        [(ngModel)]="terms"
+        [ngModelOptions]="{standalone: true}"
+        (blur)="onBlur(terms)"
+        (focus)="onFocus(terms)">
+      </div>
+  </div>
+
+  <!-- Search autocompletable -->
+  <ng-template #rt let-r="result" let-t="term">
+    <img src="assets/images/{{r.brandImage}}" class="mr-1" style="width: 16px">
+    <ngb-highlight [result]="r.price" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>
+
+<!-- Icons -->
+<div *ngIf="((insurances$ | async) | filterBy: filter | slice: (page-1) * ItemsPage : (page-1) * ItemsPage + ItemsPage) as result">
+  <div class="body-home" *ngIf="result">
+    <div class="row">
+      <div class="col" *ngFor="let policy of policies">
+        <span *ngIf="policy.kind === 'Salud'" class="badge badge-pill badge-primary">{{countSalud}} results</span>
+        <span *ngIf="policy.kind === 'Vida'" class="badge badge-pill badge-primary">{{countVida}} results</span>
+        <span *ngIf="policy.kind === 'Hogar'" class="badge badge-pill badge-primary">{{countHogar}} results</span>
+        <span *ngIf="policy.kind === 'Coche'" class="badge badge-pill badge-primary">{{countCoche}} results</span>
+        <span *ngIf="policy.kind === 'Viaje'" class="badge badge-pill badge-primary">{{countViaje}} results</span>
+        <span *ngIf="policy.kind === 'Trabajo'" class="badge badge-pill badge-primary">{{countTrabajo}} results</span>
+        <span *ngIf="policy.kind === 'Cybersecurity'" class="badge badge-pill badge-primary">{{countSecurity}} results</span>
+        <button type="button" class="btn btn-icon btn-warning btn-img-body bmd-btn-fab" mdbTooltip="{{policy?.kind}}" placement="top">
+          <img class="card-img-body"
+            src="assets/images/{{policy?.KindImage}}"
+            alt="Insurance Image Policy"
+            onError="this.src='assets/images/images.png';" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-home">
+    <div class="md-form">
+      <input type="text" id="inputDisabledEx" class="form-control" disabled>
+      <label for="inputDisabledEx" class="disabled">Showing <strong style="color: #4285f4">{{result.length}}</strong> of <strong style="color: #fcbb33">{{insurances.length}}</strong> insurances</label>
+
+      <!-- Filters -->
+      <div class="row">
+
+        <!-- Show filters -->
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-primary btn-number" (click)="showHideFilters()" type="button">Show filters
+              <strong style="color: #fcbb33">{{textFilterButton}}</strong>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search by -->
+        <div class="col-lg-3 col-md-3 col-sm-12" *ngIf="filterStatus">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-primary btn-number dropdown-toggle" (click)="clearText()" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">{{typeFilter}}<strong style="color: #fcbb33">{{field}}</strong></button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="selectSearch('name')">Name</a>
+              <a class="dropdown-item" (click)="selectSearch('brand')">Brand</a>
+              <a class="dropdown-item" (click)="selectSearch('kind')">Kind of policy</a>
+              <a class="dropdown-item" (click)="selectSearch('price')">Price</a>
+              <!-- <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="selectSearch('all')">All</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Order by kind -->
+        <div class="col-lg-3 col-md-3 col-sm-12" *ngIf="filterStatus">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-primary btn-number dropdown-toggle" (click)="clearText()" type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Filter <strong style="color: #fcbb33">{{orderType}}</strong></button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="orderByType('brand')">Brand</a>
+              <a class="dropdown-item" (click)="orderByType('kind')">Kind of policy</a>
+              <a class="dropdown-item" (click)="orderByType('price')">Price</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order asc/desc -->
+        <div class="col-lg-3 col-md-3 col-sm-12" *ngIf="filterStatus">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-primary btn-order dropdown-toggle" (click)="clearText()" type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Order <strong style="color: #fcbb33">{{ascDesc}}</strong></button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="selectOrder('ASCENDENT')">Ascendent</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="selectOrder('DESCENDENT')">Descendent</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Numer of items showed per page -->
+        <!-- <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-primary btn-number dropdown-toggle" type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Items <strong style="color: #fcbb33">{{ItemsPage}}</strong></button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="selectNumerItems(5)">5</a>
+              <a class="dropdown-item" (click)="selectNumerItems(10)">10</a>
+              <a class="dropdown-item" (click)="selectNumerItems(15)">15</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="selectNumerItems(30)">30</a>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+
+    <!-- List of insurances -->
+    <div class="card-rows">
+      <div>
+        <div class="card text-white bg-dark mb-3" *ngFor="let insurance of result; index as i" style="max-width: 18rem;">
+          <div class="card-header">
+              <i *ngIf="isAddfavorite(insurance)" class="material-icons add-fav" (click)="addFav(insurance)" mdbTooltip="add favorite" placement="bottom">
+                favorite
+              </i>
+              <i *ngIf="!isAddfavorite(insurance)" class="material-icons no-add-fav" (click)="already()" mdbTooltip="add favorite" placement="bottom">
+                favorite
+              </i>
+            <div class="img-container">
+                <img class="card-img-top" src="assets/images/{{insurance?.brandImage}}" alt="Insurance Image">
+            </div>
+            <div>{{insurance?.kind}}</div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{insurance?.brand}}</h5>
+            <!-- <p class="card-text">{{insurance?.name}}</p> -->
+            <p class="card-text" style="color: #4682fc">{{insurance?.name | truncate : 20}}</p>
+            <p class="card-text" style="color: #fcbb33">{{insurance?.price | currency: 'EUR'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <app-modal *ngIf="result"
+      [favorite]="favoriteList"
+      (changefavorite)="newFavList($event)">
+    </app-modal>
+
+    <!-- Pagination -->
+    <ngb-pagination
+      class="pagination"
+      [maxSize]="ItemsPage"
+      [pageSize]="ItemsPage"
+      [collectionSize]="insurances.length"
+      [(page)]="page">
+    </ngb-pagination>
+
+    <!-- favorite floater button -->
+    <button type="button" class="btn btn-success float-button bmd-btn-fab" data-toggle="modal" data-target="#favoriteModal">
+      <i class="material-icons fav-button">favorite</i>
+    </button>
+
+  </div>
+</div>

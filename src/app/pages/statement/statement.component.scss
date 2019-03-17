@@ -1,0 +1,38 @@
+// Statement Page
+
+// Define theme colour scheme
+$theme-color-primary: #434E5E;
+
+$theme-text-color-primary: #434E5E;
+$theme-text-color-secondary: lighten($theme-text-color-primary, 10%);
+$theme-text-color-light: lighten($theme-text-color-primary, 40%);
+$theme-border-color:  lighten($theme-text-color-primary, 10%);
+$theme-divider-color: lighten($theme-text-color-primary, 10%);
+$theme-bg-light: #F7F8FA;
+$theme-bg-dark: $theme-text-color-primary;
+
+// Create variables to override the default value for variables used in the Bootstrap SCSS files.
+$theme-colors: (
+  "primary":  $theme-color-primary,
+  "secondary":  $theme-text-color-secondary,
+);
+
+//Import Bootstrap
+@import "bootstrap/scss/bootstrap.scss";
+
+.theme-bg-primary {
+	background-color: $theme-color-primary;
+}
+
+.theme-bg-primary-darken {
+	background-color: darken($theme-color-primary, 20%);
+}
+
+.resume-wrapper {
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
+
+.resume-wrapper-inner {
+	max-width: 1000px;
+}

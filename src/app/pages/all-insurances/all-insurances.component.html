@@ -1,0 +1,83 @@
+<label class="label-search" for="typeahead-template">Filter for a name:</label>
+<form class="form-inline my-2 my-lg-0">
+  <input
+    class="form-control input-search mr-sm-2"
+    [(ngModel)]="terms"
+    [ngModelOptions]="{standalone: true}"
+    type="search"
+    placeholder="Filter"
+    aria-label="Search">
+</form>
+
+<ng-template #rt let-r="result" let-t="term">
+  <img src="assets/images/{{r.brandImage}}" class="mr-1" style="width: 16px">
+  <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+</ng-template>
+
+<label class="label-search" for="typeahead-template">Search for a name:</label>
+<form class="form-inline my-2 my-lg-0">
+  <input
+    class="form-control mr-sm-2 input-search"
+    id="typeahead-template"
+    type="text"
+    placeholder="Search"
+    [(ngModel)]="model"
+    [ngModelOptions]="{standalone: true}"
+    [ngbTypeahead]="searchb"
+    [resultTemplate]="rt"
+    [inputFormatter]="formatter" />
+  <button
+    *ngIf="model?.id"
+    class="btn btn-outline-success my-2 my-sm-0"
+    (click)="goToDetailInsurance()"
+    type="submit">
+    Go
+  </button>
+</form>
+
+<ng-container
+  *ngIf="((insurances$ | async) | search : field : terms | slice: (page-1) * maxSize : (page-1) * maxSize + maxSize) as result">
+  <div class="label-results">
+    <p>
+      <ngb-alert [dismissible]="false" [type]="'info'">
+        <strong>Showing: </strong>  {{result.length}} of {{insurances.length}}
+      </ngb-alert>
+    </p>
+
+  </div>
+  <div
+    class="card"
+    *ngFor="let insurance of result; index as i; first as isFirs"
+    style="width: 18rem;">
+    <div class="image-container" ngxUiLoaderBlurred [loaderId]="'loader-01'">
+      <img class="card-img-top" src="assets/images/{{insurance?.brandImage}}" alt="Insurance Image">
+    </div>
+    <div class="card-body" ngxUiLoaderBlurred [loaderId]="'loader-01'">
+      <p class="card-text"><strong>{{insurance?.brand}}</strong></p>
+      <img class="card-img-body"
+        src="assets/images/{{insurance?.KindImage}}"
+        alt="Insurance Image Policy"
+        onError="this.src='assets/images/images.png';" />
+      <!-- <div *ngIf="insurance.KindImage; else noImage">
+        <img class="card-img-body" src="assets/images/{{insurance?.KindImage}}" alt="Insurance Image Policy">
+      </div>
+      <ng-template #noImage>
+        <img class="card-img-body" src="assets/images/images.png" alt="Insurance Image Policy">
+      </ng-template> -->
+      <p class="card-text">ID: {{insurance?.id}}</p>
+      <p class="card-text">Kind: {{insurance?.kind}}</p>
+      <!-- <p class="card-text">Name: {{(insurance?.name>20) ? (insurance?.name | slice:0:20)+'...' : (insurance?.name)}}</p> -->
+      <p class="card-text">Name: {{insurance?.name | truncate : 2}}</p>
+      <p class="card-text">Price: {{insurance?.price | currency: 'EUR'}}</p>
+    </div>
+  </div>
+</ng-container>
+
+<ngb-pagination
+  class="pagination"
+  [maxSize]="maxSize"
+  [pageSize]="maxSize"
+  [collectionSize]="insurances.length"
+  [(page)]="page">
+</ngb-pagination>
+
